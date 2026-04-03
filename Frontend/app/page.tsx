@@ -27,19 +27,19 @@ const features = [
     icon: <AlertTriangle className="w-6 h-6" />,
     title: "Risk Scoring Engine",
     desc: "Dynamic composite risk calculation aggregating all violation signals into a real-time risk score with trend analysis and threshold alerting.",
-    accent: "#f59e0b",
+    accent: "#8b5cf6",
   },
   {
     icon: <Brain className="w-6 h-6" />,
     title: "Behavioral Intelligence",
     desc: "Advanced pattern recognition analyzing behavioral sequences over time to identify anomalies, stress indicators, and suspicious activity clusters.",
-    accent: "#10b981",
+    accent: "#3b82f6",
   },
   {
     icon: <Lightbulb className="w-6 h-6" />,
     title: "Smart Feedback System",
     desc: "AI-generated personalized improvement recommendations based on session performance data with prioritized action items and trend comparisons.",
-    accent: "#ef4444",
+    accent: "#06b6d4",
   },
 ];
 
@@ -53,9 +53,9 @@ const stats = [
 const archSteps = [
   { icon: <Camera className="w-5 h-5" />, label: "Webcam Input",   sub: "Video + Audio",       color: "#06b6d4" },
   { icon: <Brain className="w-5 h-5" />, label: "AI Modules",     sub: "Eye · Face · Voice",  color: "#3b82f6" },
-  { icon: <Zap className="w-5 h-5" />, label: "Risk Engine",    sub: "Composite Scoring",   color: "#f59e0b" },
+  { icon: <Zap className="w-5 h-5" />, label: "Risk Engine",    sub: "Composite Scoring",   color: "#8b5cf6" },
   { icon: <Database className="w-5 h-5" />, label: "Behavioral DB",  sub: "Session Storage",     color: "#8b5cf6" },
-  { icon: <Lightbulb className="w-5 h-5" />, label: "Feedback API",   sub: "Smart Reports",       color: "#10b981" },
+  { icon: <Lightbulb className="w-5 h-5" />, label: "Feedback API",   sub: "Smart Reports",       color: "#06b6d4" },
 ];
 
 const techStack = [
@@ -84,7 +84,7 @@ const howItWorks = [
     icon: <FileCheck className="w-7 h-7" />,
     title: "Get AI Feedback",
     desc: "Receive comprehensive reports with risk analysis, violation breakdowns, and personalized improvement suggestions.",
-    color: "#10b981",
+    color: "#06b6d4",
   },
 ];
 
@@ -105,7 +105,7 @@ const whyChoose = [
     icon: <Clock className="w-5 h-5" />,
     title: "Real-Time Processing",
     desc: "12ms response latency ensures instant detection and alerting with zero delay.",
-    color: "#10b981",
+    color: "#8b5cf6",
   },
 ];
 
@@ -126,33 +126,40 @@ const staggerItem = {
   whileInView: { opacity: 1, y: 0 },
 };
 
+const accentGradient = "linear-gradient(135deg, #8b5cf6, #3b82f6, #06b6d4)";
+const primaryButtonClass =
+  "inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#8b5cf6] via-[#3b82f6] to-[#06b6d4] px-8 py-3.5 text-sm font-semibold text-white shadow-[0_18px_60px_rgba(59,130,246,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_24px_72px_rgba(59,130,246,0.38)]";
+const secondaryButtonClass =
+  "inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-3.5 text-sm font-semibold text-slate-200 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.08] hover:text-white";
+
 export default function LandingPage() {
   const { isAuthenticated } = useAuth();
 
   return (
-    <div className="bg-[#080c14] min-h-screen">
+    <div className="min-h-screen bg-[#05070d] text-white">
 
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section className="relative min-h-[92vh] flex items-center justify-center text-center px-6 pt-16 overflow-hidden">
+      <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden px-6 pt-24 text-center sm:pt-28">
         {/* Background layers */}
         <div className="absolute inset-0 bg-grid opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#080c14]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(139,92,246,0.24),transparent_38%),radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.16),transparent_28%),radial-gradient(circle_at_80%_15%,rgba(6,182,212,0.14),transparent_26%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#05070d]/20 via-[#05070d]/35 to-[#05070d]" />
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute w-[600px] h-[600px] -top-32 -left-32 bg-blue-500/10 rounded-full blur-[100px] animate-float" />
-          <div className="absolute w-[500px] h-[500px] -bottom-20 -right-16 bg-cyan-500/8  rounded-full blur-[100px] animate-float" style={{ animationDelay: "3s" }} />
-          <div className="absolute w-[400px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-purple-500/6 rounded-full blur-[100px] animate-float" style={{ animationDelay: "5s" }} />
+          <div className="absolute -left-32 top-[-10rem] h-[34rem] w-[34rem] rounded-full bg-[#8b5cf6]/14 blur-[120px] animate-float" />
+          <div className="absolute -right-28 bottom-[-8rem] h-[30rem] w-[30rem] rounded-full bg-[#06b6d4]/10 blur-[120px] animate-float" style={{ animationDelay: "3s" }} />
+          <div className="absolute left-1/2 top-20 h-[24rem] w-[24rem] -translate-x-1/2 rounded-full bg-[#3b82f6]/10 blur-[110px] animate-float" style={{ animationDelay: "5s" }} />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto">
+        <div className="relative z-10 mx-auto max-w-5xl">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 16, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-flex items-center gap-2 glass-card rounded-full px-5 py-2 text-xs text-cyan-400 font-medium mb-8"
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs font-medium text-slate-200 backdrop-blur-xl shadow-[0_0_0_1px_rgba(255,255,255,0.02)]"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4] animate-pulse-dot" />
-            Powered by Behavioral AI Engine v2.0
+            <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-[#06b6d4] shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
+            Welcome to AI Platform
           </motion.div>
 
           {/* Title */}
@@ -160,9 +167,9 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-5"
+            className="mx-auto mb-6 max-w-4xl text-5xl font-semibold tracking-[-0.04em] leading-[1.02] sm:text-6xl lg:text-7xl"
           >
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-clip-text text-transparent" style={{ backgroundImage: accentGradient }}>
               AI-Powered
             </span>{" "}
             Interview Monitoring<br />
@@ -174,7 +181,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.35 }}
-            className="text-lg text-slate-400 mb-10 font-light max-w-2xl mx-auto"
+            className="mx-auto mb-10 max-w-2xl text-base font-normal leading-7 text-slate-400 sm:text-lg"
           >
             Ensuring Integrity, Enhancing Performance
           </motion.p>
@@ -184,20 +191,20 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.45 }}
-            className="flex flex-wrap gap-3 justify-center"
+            className="flex flex-wrap justify-center gap-3"
           >
             {isAuthenticated ? (
               <>
                 <Link
                   href="/interview"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-xl font-semibold text-sm tracking-wide shadow-[0_4px_20px_rgba(59,130,246,0.3)] hover:shadow-[0_8px_32px_rgba(59,130,246,0.5)] hover:-translate-y-0.5 transition-all duration-300"
+                  className={primaryButtonClass}
                 >
                   <Play className="w-4 h-4" />
                   Start Interview
                 </Link>
                 <Link
                   href="/dashboard"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 glass-card text-slate-200 rounded-xl font-semibold text-sm tracking-wide hover:border-cyan-500/40 hover:text-cyan-300 transition-all duration-300"
+                  className={secondaryButtonClass}
                 >
                   <BarChart className="w-4 h-4" />
                   View Dashboard
@@ -207,16 +214,17 @@ export default function LandingPage() {
               <>
                 <Link
                   href="/login"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-xl font-semibold text-sm tracking-wide shadow-[0_4px_20px_rgba(59,130,246,0.3)] hover:shadow-[0_8px_32px_rgba(59,130,246,0.5)] hover:-translate-y-0.5 transition-all duration-300"
+                  className={primaryButtonClass}
                 >
                   <Play className="w-4 h-4" />
                   Get Started
                 </Link>
                 <button
                   onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
-                  className="inline-flex items-center gap-2 px-8 py-3.5 glass-card text-slate-200 rounded-xl font-semibold text-sm tracking-wide hover:border-cyan-500/40 hover:text-cyan-300 transition-all duration-300"
+                  className={secondaryButtonClass}
                 >
-                  Explore Features ↓
+                  Explore Features
+                  <span className="text-slate-400">↓</span>
                 </button>
               </>
             )}
@@ -225,31 +233,35 @@ export default function LandingPage() {
       </section>
 
       {/* ── STATS BANNER ──────────────────────────────────── */}
-      <div className="relative">
-        <div className="section-divider" />
-        <div className="glass" style={{ background: "rgba(15, 23, 36, 0.5)" }}>
-          <div className="max-w-5xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div className="relative px-6">
+        <div className="mx-auto max-w-6xl rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.28)]">
+          <div className="grid grid-cols-2 divide-x divide-white/10 text-center md:grid-cols-4">
             {stats.map((s, i) => (
               <motion.div
                 key={i}
                 {...fadeUp}
                 transition={{ duration: 0.4, delay: 0.1 * i }}
+                className="px-6 py-8 sm:px-8"
               >
-                <div className="text-3xl sm:text-4xl font-bold font-mono tracking-tight" style={{ color: s.color }}>{s.value}</div>
-                <div className="text-xs text-slate-400 mt-1.5">{s.label}</div>
+                <div
+                  className="text-3xl font-semibold font-mono tracking-tight sm:text-4xl"
+                  style={{ color: s.color, textShadow: `0 0 22px ${s.color}55` }}
+                >
+                  {s.value}
+                </div>
+                <div className="mt-2 text-xs uppercase tracking-[0.22em] text-slate-400">{s.label}</div>
               </motion.div>
             ))}
           </div>
         </div>
-        <div className="section-divider" />
       </div>
 
       {/* ── FEATURES ──────────────────────────────────────── */}
-      <section id="features" className="max-w-6xl mx-auto px-6 py-20 md:py-28">
-        <motion.div {...fadeUp} transition={{ duration: 0.5 }}>
-          <div className="text-[11px] font-semibold tracking-widest uppercase text-cyan-400 mb-2">Core Modules</div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Six AI-Driven Intelligence Layers</h2>
-          <p className="text-slate-400 text-sm mb-14 max-w-2xl">
+      <section id="features" className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <motion.div {...fadeUp} transition={{ duration: 0.5 }} className="max-w-2xl">
+          <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#06b6d4]">Core Modules</div>
+          <h2 className="mb-3 text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl">Six AI-Driven Intelligence Layers</h2>
+          <p className="mb-14 text-sm leading-7 text-slate-400">
             Multi-modal behavioral analysis combining computer vision, audio processing, and predictive risk modeling.
           </p>
         </motion.div>
@@ -264,38 +276,38 @@ export default function LandingPage() {
               variants={staggerItem}
               transition={{ duration: 0.4 }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group relative glass-card glass-card-hover rounded-xl p-6 overflow-hidden"
+              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 shadow-[0_12px_40px_rgba(0,0,0,0.22)] transition-all duration-300 hover:border-white/15 hover:bg-white/[0.06]"
             >
               {/* Top accent line */}
               <div
-                className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute left-0 right-0 top-0 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 style={{ background: `linear-gradient(90deg, transparent, ${f.accent}, transparent)` }}
               />
               {/* Hover glow */}
               <div
-                className="absolute -top-20 -right-20 w-40 h-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-[60px]"
-                style={{ background: f.accent + "15" }}
+                className="absolute -right-16 -top-16 h-36 w-36 rounded-full opacity-0 blur-[70px] transition-opacity duration-500 group-hover:opacity-100"
+                style={{ background: `${f.accent}20` }}
               />
 
               <div
-                className="relative w-11 h-11 rounded-lg flex items-center justify-center mb-4"
+                className="relative mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-white/10"
                 style={{ background: `${f.accent}15`, color: f.accent }}
               >
                 {f.icon}
               </div>
-              <h3 className="relative text-[15px] font-semibold mb-2">{f.title}</h3>
-              <p className="relative text-sm text-slate-400 leading-relaxed">{f.desc}</p>
+              <h3 className="relative mb-2 text-[15px] font-semibold tracking-[-0.02em] text-white">{f.title}</h3>
+              <p className="relative text-sm leading-7 text-slate-400">{f.desc}</p>
             </motion.div>
           ))}
         </motion.div>
       </section>
 
       {/* ── PROCESSING PIPELINE ───────────────────────────── */}
-      <section id="pipeline" className="max-w-6xl mx-auto px-6 pb-20 md:pb-28">
-        <motion.div {...fadeUp} transition={{ duration: 0.5 }}>
-          <div className="text-[11px] font-semibold tracking-widest uppercase text-cyan-400 mb-2">System Architecture</div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Processing Pipeline</h2>
-          <p className="text-slate-400 text-sm mb-10 max-w-2xl">
+      <section id="pipeline" className="mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        <motion.div {...fadeUp} transition={{ duration: 0.5 }} className="max-w-2xl">
+          <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#06b6d4]">System Architecture</div>
+          <h2 className="mb-3 text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl">Processing Pipeline</h2>
+          <p className="mb-10 text-sm leading-7 text-slate-400">
             From raw sensor inputs to intelligent behavioral reports — all in real time.
           </p>
         </motion.div>
@@ -303,10 +315,10 @@ export default function LandingPage() {
         <motion.div
           {...fadeUp}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="glass-card rounded-2xl p-6 sm:p-8"
+          className="rounded-[28px] border border-white/10 bg-white/5 p-6 backdrop-blur-xl sm:p-8"
         >
           {/* Flow */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+          <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
             {archSteps.map((s, i) => (
               <motion.div
                 key={i}
@@ -317,15 +329,15 @@ export default function LandingPage() {
                 transition={{ duration: 0.3, delay: i * 0.1 }}
               >
                 <div
-                  className="glass-card rounded-xl px-5 py-4 text-center min-w-[120px] hover:border-opacity-60 transition-all duration-300"
-                  style={{ borderColor: `${s.color}30` }}
+                  className="min-w-[120px] rounded-2xl border border-white/10 bg-[#05070d]/60 px-5 py-4 text-center transition-all duration-300 hover:border-white/20 hover:bg-white/[0.06]"
+                  style={{ boxShadow: `0 0 0 1px ${s.color}10 inset` }}
                 >
-                  <div className="flex justify-center mb-1" style={{ color: s.color }}>{s.icon}</div>
-                  <div className="text-xs font-semibold" style={{ color: s.color }}>{s.label}</div>
-                  <div className="text-[10px] text-slate-500 mt-0.5">{s.sub}</div>
+                  <div className="mb-1 flex justify-center" style={{ color: s.color }}>{s.icon}</div>
+                  <div className="text-xs font-semibold tracking-wide" style={{ color: s.color }}>{s.label}</div>
+                  <div className="mt-0.5 text-[10px] text-slate-500">{s.sub}</div>
                 </div>
                 {i < archSteps.length - 1 && (
-                  <span className="text-slate-600 text-lg font-light hidden sm:inline">→</span>
+                  <span className="hidden text-lg font-light text-slate-600 sm:inline">→</span>
                 )}
               </motion.div>
             ))}
@@ -334,8 +346,8 @@ export default function LandingPage() {
           {/* Tech stack */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {techStack.map((t, i) => (
-              <div key={i} className="bg-[#080c14]/60 border border-white/[0.06] rounded-lg px-4 py-3">
-                <div className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mb-1">{t.label}</div>
+              <div key={i} className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3">
+                <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">{t.label}</div>
                 <div className="text-[13px] font-medium text-slate-200">{t.value}</div>
               </div>
             ))}
@@ -344,19 +356,19 @@ export default function LandingPage() {
       </section>
 
       {/* ── HOW IT WORKS ──────────────────────────────────── */}
-      <section className="relative py-20 md:py-28">
+      <section className="relative py-24 md:py-32">
         <div className="section-divider" />
-        <div className="glass" style={{ background: "rgba(15, 23, 36, 0.3)" }}>
-          <div className="max-w-5xl mx-auto px-6 py-20">
-            <motion.div {...fadeUp} transition={{ duration: 0.5 }} className="text-center mb-14">
-              <div className="text-[11px] font-semibold tracking-widest uppercase text-cyan-400 mb-2">Getting Started</div>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">How It Works</h2>
-              <p className="text-slate-400 text-sm max-w-lg mx-auto">
+        <div className="bg-white/[0.02]">
+          <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
+            <motion.div {...fadeUp} transition={{ duration: 0.5 }} className="mb-14 text-center">
+              <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#06b6d4]">Getting Started</div>
+              <h2 className="mb-3 text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl">How It Works</h2>
+              <p className="mx-auto max-w-lg text-sm leading-7 text-slate-400">
                 Get up and running in three simple steps — from sign-up to AI-powered feedback.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {howItWorks.map((item, i) => (
                 <motion.div
                   key={i}
@@ -364,25 +376,25 @@ export default function LandingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.12 }}
-                  className="relative glass-card glass-card-hover rounded-xl p-6 text-center"
+                  className="relative rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-xl transition-all duration-300 hover:border-white/15 hover:bg-white/[0.06] hover:shadow-[0_18px_48px_rgba(0,0,0,0.22)]"
                 >
                   {/* Step number */}
-                  <div className="text-[11px] font-bold font-mono tracking-widest mb-4" style={{ color: item.color }}>
+                  <div className="mb-4 font-mono text-[11px] font-bold tracking-[0.24em]" style={{ color: item.color }}>
                     STEP {item.step}
                   </div>
                   {/* Icon */}
                   <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                    className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10"
                     style={{ background: `${item.color}12`, color: item.color }}
                   >
                     {item.icon}
                   </div>
-                  <h3 className="text-base font-semibold mb-2">{item.title}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
+                  <h3 className="mb-2 text-base font-semibold tracking-[-0.02em] text-white">{item.title}</h3>
+                  <p className="text-sm leading-7 text-slate-400">{item.desc}</p>
 
                   {/* Connector arrow (between cards on desktop) */}
                   {i < howItWorks.length - 1 && (
-                    <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-600 text-lg z-10">→</div>
+                    <div className="absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 text-lg text-slate-600 md:block">→</div>
                   )}
                 </motion.div>
               ))}
@@ -393,16 +405,16 @@ export default function LandingPage() {
       </section>
 
       {/* ── ABOUT / WHY CHOOSE US ─────────────────────────── */}
-      <section id="about" className="max-w-6xl mx-auto px-6 py-20 md:py-28">
-        <motion.div {...fadeUp} transition={{ duration: 0.5 }} className="text-center mb-14">
-          <div className="text-[11px] font-semibold tracking-widest uppercase text-cyan-400 mb-2">Why AISMS</div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Built for Integrity at Scale</h2>
-          <p className="text-slate-400 text-sm max-w-lg mx-auto">
+      <section id="about" className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <motion.div {...fadeUp} transition={{ duration: 0.5 }} className="mb-14 text-center">
+          <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#06b6d4]">Why AISMS</div>
+          <h2 className="mb-3 text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl">Built for Integrity at Scale</h2>
+          <p className="mx-auto max-w-lg text-sm leading-7 text-slate-400">
             A purpose-built monitoring platform that combines cutting-edge AI with seamless user experience.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {whyChoose.map((item, i) => (
             <motion.div
               key={i}
@@ -411,16 +423,16 @@ export default function LandingPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
               whileHover={{ y: -3, transition: { duration: 0.2 } }}
-              className="glass-card glass-card-hover rounded-xl p-6"
+              className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-white/15 hover:bg-white/[0.06]"
             >
               <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
+                className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-white/10"
                 style={{ background: `${item.color}12`, color: item.color }}
               >
                 {item.icon}
               </div>
-              <h3 className="text-[15px] font-semibold mb-2">{item.title}</h3>
-              <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
+              <h3 className="mb-2 text-[15px] font-semibold tracking-[-0.02em] text-white">{item.title}</h3>
+              <p className="text-sm leading-7 text-slate-400">{item.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -429,17 +441,17 @@ export default function LandingPage() {
       {/* ── FOOTER CTA ───────────────────────────────────── */}
       <div className="relative">
         <div className="section-divider" />
-        <div className="relative py-16 text-center overflow-hidden">
+        <div className="relative overflow-hidden py-16 text-center">
           {/* Background glow */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute w-[500px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-500/8 rounded-full blur-[80px]" />
+            <div className="absolute left-1/2 top-1/2 h-[320px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#3b82f6]/10 blur-[100px]" />
           </div>
 
           <motion.div {...fadeUp} transition={{ duration: 0.5 }} className="relative z-10">
-            <p className="text-slate-400 text-base mb-6 font-light">Ready to monitor your next interview session?</p>
+            <p className="mb-6 text-base font-normal text-slate-400">Ready to monitor your next interview session?</p>
             <Link
               href={isAuthenticated ? "/interview" : "/login"}
-              className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-xl font-semibold text-sm shadow-[0_4px_24px_rgba(59,130,246,0.3)] hover:shadow-[0_8px_36px_rgba(59,130,246,0.5)] hover:-translate-y-0.5 transition-all duration-300"
+              className={primaryButtonClass}
             >
               {isAuthenticated ? "Launch Monitoring System" : "Get Started Free"}
               <span className="text-lg">→</span>
@@ -451,8 +463,8 @@ export default function LandingPage() {
         <div className="section-divider" />
         <div className="py-8 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-[9px] font-bold text-white">AI</div>
-            <span className="text-xs font-bold text-slate-500">AISMS</span>
+            <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-br from-[#8b5cf6] via-[#3b82f6] to-[#06b6d4] text-[9px] font-bold text-white">AI</div>
+            <span className="text-xs font-bold tracking-[0.22em] text-slate-500">AISMS</span>
           </div>
           <p className="text-[11px] text-slate-600">AI-Powered Interview Monitoring & Behavioral Analysis System</p>
         </div>

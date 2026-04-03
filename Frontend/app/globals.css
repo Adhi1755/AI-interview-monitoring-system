@@ -1,11 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-space: "Space Grotesk", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "DM Sans", sans-serif;
+  --font-mono: var(--font-sans);
 }
 
 * {
@@ -20,9 +19,9 @@ html {
 }
 
 body {
-  background: #080c14;
-  color: #e2e8f0;
-  font-family: var(--font-space);
+  background: #05070d;
+  color: #ffffff;
+  font-family: var(--font-sans);
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -35,40 +34,38 @@ body {
 
 /* ── Grid background utility ────────────────────────── */
 .bg-grid {
-  background-image: linear-gradient(rgba(30,45,71,.35) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(30,45,71,.35) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
 /* ── Glassmorphism utilities ────────────────────────── */
 .glass {
-  background: rgba(15, 23, 36, 0.75);
+  background: rgba(255,255,255,0.03);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-card {
-  background: rgba(15, 23, 36, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 
-    0 0 0 1px rgba(30, 45, 71, 0.5),
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .glass-card-hover {
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .glass-card-hover:hover {
-  background: rgba(15, 23, 36, 0.75);
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 0 0 1px rgba(30, 45, 71, 0.6),
-    0 16px 48px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 18px 52px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
   transform: translateY(-2px);
 }
 
@@ -137,7 +134,7 @@ body {
 /* ── Section divider ────────────────────────────────── */
 .section-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(30, 45, 71, 0.8), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
 }
 
 /* Chart.js dark overrides */
@@ -147,7 +144,7 @@ canvas { max-width: 100%; }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px #0d1421 inset;
-  -webkit-text-fill-color: #e2e8f0;
-  caret-color: #e2e8f0;
+  -webkit-box-shadow: 0 0 0px 1000px #05070d inset;
+  -webkit-text-fill-color: #ffffff;
+  caret-color: #ffffff;
 }

@@ -68,7 +68,7 @@ export default function Navbar() {
   // Don't render until auth state is resolved to avoid flash
   if (loading) {
     return (
-      <nav className="fixed top-0 left-0 right-0 z-50 h-16 flex items-center px-4 md:px-8 bg-[#080c14]/80 backdrop-blur-xl border-b border-white/[0.06]" />
+      <nav className="fixed left-1/2 top-4 z-50 flex h-16 w-[calc(100%-1.5rem)] max-w-6xl -translate-x-1/2 items-center rounded-full border border-white/10 bg-white/5 px-4 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.35)] md:px-6" />
     );
   }
 
@@ -76,10 +76,10 @@ export default function Navbar() {
     <>
       <nav
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 md:px-8 transition-all duration-300",
+          "fixed left-1/2 top-4 z-50 flex h-16 w-[calc(100%-1.5rem)] max-w-6xl -translate-x-1/2 items-center justify-between rounded-full px-4 transition-all duration-300 md:px-6",
           scrolled
-            ? "bg-[#080c14]/85 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
-            : "bg-[#080c14]/60 backdrop-blur-lg border-b border-transparent"
+            ? "border border-white/15 bg-white/8 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+            : "border border-white/10 bg-white/5 backdrop-blur-2xl shadow-[0_16px_48px_rgba(0,0,0,0.28)]"
         )}
       >
         {/* ── Logo ──────────────────────────────── */}
@@ -137,7 +137,7 @@ export default function Navbar() {
           {isAuthenticated ? (
             <button
               onClick={logout}
-              className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-[13px] font-medium text-slate-400 border border-[#1e2d47] hover:border-red-500/40 hover:text-red-300 hover:bg-red-500/5 transition-all duration-200"
+              className="hidden md:inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-[13px] font-medium text-slate-400 transition-all duration-200 hover:border-white/20 hover:bg-white/5 hover:text-white"
             >
               <LogOut className="w-3.5 h-3.5" />
               Logout
@@ -145,7 +145,7 @@ export default function Navbar() {
           ) : (
             <Link
               href="/login"
-              className="hidden md:inline-flex items-center gap-1.5 px-5 py-2 rounded-lg text-[13px] font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-[0_0_20px_rgba(59,130,246,0.2)] hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:-translate-y-[1px] transition-all duration-200"
+              className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#8b5cf6] via-[#3b82f6] to-[#06b6d4] px-5 py-2 text-[13px] font-semibold text-white shadow-[0_0_24px_rgba(59,130,246,0.26)] transition-all duration-200 hover:-translate-y-[1px] hover:shadow-[0_0_34px_rgba(59,130,246,0.38)]"
             >
               Get Started
               <ChevronRight className="w-3.5 h-3.5" />
@@ -155,7 +155,7 @@ export default function Navbar() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors"
+            className="rounded-full p-2 text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-200 md:hidden"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -179,7 +179,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="absolute right-0 top-0 bottom-0 w-72 bg-[#0d1421]/95 backdrop-blur-xl border-l border-white/[0.06] p-6 pt-20"
+              className="absolute right-0 top-0 bottom-0 w-72 border-l border-white/10 bg-[#05070d]/95 p-6 pt-20 backdrop-blur-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex flex-col gap-1">
