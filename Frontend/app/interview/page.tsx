@@ -13,9 +13,10 @@ import { getRiskLevel, formatTime } from "@/lib/utils";
 import ProtectedRoute from "@/components/layout/ProtectedRoute";
 import { startSession, stopSession, processFrame, getLiveData, checkHealth } from "@/lib/api";
 import { useAuth } from "@/contexts/AuthContext";
+import { useAudioMonitor } from "@/hooks/useAudioMonitor";
 import {
   Camera, Mic, Eye, User, Clock, Play, Square, Settings,
-  ClipboardCheck, Zap, Monitor
+  ClipboardCheck, Zap, Monitor, Volume2
 } from "lucide-react";
 
 function getRiskBarColor(score: number) {
@@ -48,10 +49,28 @@ export default function InterviewPage() {
   const [faceViolations, setFaceViolations] = useState(0);
   const [voiceViolations, setVoiceViolations] = useState(0);
   const [audioLevel, setAudioLevel] = useState(0);
+  const [browserAudioLevel, setBrowserAudioLevel] = useState(0);
   const [log, setLog] = useState<{ type: "ok" | "warn" | "err"; msg: string }[]>([]);
   const processingRef = useRef(false);
+  const browserVoiceViolationsRef = useRef(0);
 
   const level = getRiskLevel(riskScore);
+
+  // Browser-side audio monitoring via Web Audio API
+  const audioMonitor = useAudioMonitor({
+    threshold: 18,
+    interval: 250,
+    onLevel: (lvl) => setBrowserAudioLevel(lvl),
+    onNoiseDetected: (lvl) => {
+      browserVoiceViolationsRef.current += 1;
+      // If backend voice isn't detecting, use browser detection
+      if (voiceStatus === "Normal" || voiceStatus === "Waiting...") {
+        setVoiceStatus("Background voice detected");
+        setAudioLevel(lvl);
+        setVoiceViolations((v) => v + 1);
+      }
+    },
+  });
 
   const handleStartMonitoring = useCallback(async () => {
     setPhase("connecting");
@@ -66,9 +85,6 @@ export default function InterviewPage() {
         setSessionActive(true);
         setVoiceAvailable(res.voice_available);
         toast.success("AI monitoring activated");
-        if (!res.voice_available) {
-          toast("Microphone not available — voice analysis disabled");
-        }
       } else {
         toast.error("Failed to start backend session. Using demo mode.");
       }
@@ -76,8 +92,11 @@ export default function InterviewPage() {
       toast("Backend not running — using demo mode");
     }
 
+    // Start browser-side audio monitoring
+    audioMonitor.start();
+
     setPhase("monitoring");
-  }, [user?.id]);
+  }, [user?.id, audioMonitor]);
 
   const handleFrame = useCallback(async (base64Frame: string) => {
     if (!backendConnected || !sessionActive || processingRef.current) return;
@@ -93,13 +112,17 @@ export default function InterviewPage() {
             : `Looking ${dir.charAt(0).toUpperCase() + dir.slice(1)}`
         );
         setFaceStatus(result.face.status);
-        setVoiceStatus(result.voice.status);
+        // Use backend voice status if it detected something, otherwise keep browser detection
+        if (result.voice.status !== "Normal" || voiceStatus === "Waiting...") {
+          setVoiceStatus(result.voice.status);
+        }
         setEyeViolations(result.eye.violations);
         setFaceViolations(result.face.violations);
-        setVoiceViolations(result.voice.violations);
+        // Use the higher violation count between backend and browser
+        setVoiceViolations(Math.max(result.voice.violations, browserVoiceViolationsRef.current));
         setRiskScore(normalizeScore(result.risk.score));
         setElapsed(result.elapsed);
-        if (result.voice.audio_level !== undefined) {
+        if (result.voice.audio_level !== undefined && result.voice.audio_level > 0) {
           setAudioLevel(result.voice.audio_level);
         }
       }
@@ -153,6 +176,9 @@ export default function InterviewPage() {
   }, [phase, backendConnected]);
 
   const endSession = async () => {
+    // Stop browser audio monitoring
+    audioMonitor.stop();
+
     if (backendConnected && sessionActive) {
       toast("Stopping session...");
       const res = await stopSession(user?.id);
@@ -164,6 +190,16 @@ export default function InterviewPage() {
     }
     setTimeout(() => router.push("/feedback"), 1200);
   };
+
+  // Reset browser voice status after 1.5s of no noise
+  useEffect(() => {
+    if (!audioMonitor.noiseDetected && voiceStatus === "Background voice detected") {
+      const timer = setTimeout(() => {
+        setVoiceStatus("Normal");
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [audioMonitor.noiseDetected, voiceStatus]);
 
   return (
     <ProtectedRoute>
@@ -376,20 +412,41 @@ export default function InterviewPage() {
                         {/* Voice */}
                         {(() => {
                           const isNormal = voiceStatus === "Normal" || voiceStatus === "Waiting...";
+                          const displayLevel = browserAudioLevel > 0 ? browserAudioLevel : audioLevel;
                           return (
                             <div className={`flex items-center justify-between p-3 rounded-xl border ${isNormal ? "bg-emerald-500/[0.04] border-emerald-500/15" : "bg-amber-500/[0.04] border-amber-500/15"}`}>
                               <div className="flex items-center gap-3">
                                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isNormal ? "bg-emerald-500/10 text-emerald-400" : "bg-amber-500/10 text-amber-400"}`}>
                                   <Mic className="w-4 h-4" />
                                 </div>
-                                <div>
+                                <div className="flex-1">
                                   <div className="text-[10px] text-white/30 uppercase tracking-wide mb-0.5">Voice Analysis</div>
                                   <div className={`text-sm font-semibold ${isNormal ? "text-emerald-300" : "text-amber-300"}`}>
                                     {voiceStatus}
                                   </div>
                                   <div className="text-[10px] text-white/20 mt-0.5">
-                                    {voiceViolations} violations · Level: {audioLevel.toFixed(1)}
+                                    {voiceViolations} violations · Level: {displayLevel.toFixed(1)}
                                   </div>
+                                  {/* Live audio level bar */}
+                                  {audioMonitor.active && (
+                                    <div className="mt-2 flex items-center gap-2">
+                                      <Volume2 className="w-3 h-3 text-white/20 flex-shrink-0" />
+                                      <div className="flex-1 h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
+                                        <div
+                                          className="h-full rounded-full transition-all duration-150"
+                                          style={{
+                                            width: `${Math.min(100, browserAudioLevel)}%`,
+                                            background: browserAudioLevel > 18
+                                              ? "linear-gradient(90deg, #f59e0b, #ef4444)"
+                                              : "linear-gradient(90deg, #10b981, #34d399)",
+                                          }}
+                                        />
+                                      </div>
+                                      <span className="text-[9px] font-mono text-white/20 w-6 text-right flex-shrink-0">
+                                        {browserAudioLevel}
+                                      </span>
+                                    </div>
+                                  )}
                                 </div>
                               </div>
                               <Badge variant={isNormal ? "green" : "amber"}>
