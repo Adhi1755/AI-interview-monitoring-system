@@ -21,23 +21,23 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${dmSans.variable} dark`}>
-      <body className="bg-[#080c14] text-slate-200 font-sans antialiased">
+      <body className="bg-[#08080f] text-white font-sans antialiased">
         <AuthProvider>
-   
+          <Navbar />
           <main>{children}</main>
           <Toaster
             position="bottom-right"
             toastOptions={{
               style: {
-                background: "#131e2e",
-                color: "#e2e8f0",
-                border: "1px solid #243655",
-                borderRadius: "8px",
+                background: "#0e0e1a",
+                color: "#ffffff",
+                border: "1px solid rgba(255,255,255,0.07)",
+                borderRadius: "12px",
                 fontSize: "13px",
                 fontFamily: "var(--font-sans)",
               },
-              success: { iconTheme: { primary: "#10b981", secondary: "#131e2e" } },
-              error:   { iconTheme: { primary: "#ef4444", secondary: "#131e2e" } },
+              success: { iconTheme: { primary: "#10b981", secondary: "#0e0e1a" } },
+              error:   { iconTheme: { primary: "#ef4444", secondary: "#0e0e1a" } },
             }}
           />
         </AuthProvider>

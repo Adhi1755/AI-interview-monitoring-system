@@ -10,6 +10,7 @@ import { apiRegister } from "@/lib/api";
 
 const COURSES = ["B.Tech", "M.Tech", "B.Sc", "M.Sc", "BCA", "MCA", "MBA", "B.E", "M.E"];
 const YEARS   = ["1st Year", "2nd Year", "3rd Year", "4th Year", "PG 1st Year", "PG 2nd Year"];
+const SEMESTERS = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
 const highlights = [
   { icon: <Shield className="w-4 h-4" />, text: "Exam integrity guaranteed" },
@@ -37,7 +38,7 @@ export default function SignupPage() {
 
   const [form, setForm] = useState({
     name: "", email: "", password: "", confirmPassword: "",
-    college: "", branch: "", course: "B.Tech", year: "1st Year",
+    college: "", branch: "", course: "B.Tech", year: "1st Year", semester: "1",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [showPw, setShowPw]       = useState(false);
@@ -48,7 +49,7 @@ export default function SignupPage() {
       setForm(prev => ({ ...prev, [k]: e.target.value }));
 
   const handleSignup = async () => {
-    const { name, email, password, confirmPassword, college, branch, course, year } = form;
+    const { name, email, password, confirmPassword, college, branch, course, year, semester } = form;
     if (!name || !email || !password || !college || !branch) {
       toast.error("Please fill in all required fields"); return;
     }
@@ -60,7 +61,7 @@ export default function SignupPage() {
     }
     setIsLoading(true);
     try {
-      const { user, token } = await apiRegister({ name, email, password, college, branch, course, year });
+      const { user, token } = await apiRegister({ name, email, password, college, branch, course, year, semester });
       loginWithToken(user, token);
       toast.success(`Welcome, ${user.name}!`);
       router.push("/dashboard");
@@ -100,9 +101,8 @@ export default function SignupPage() {
         {/* Main card */}
         <div className="grid lg:grid-cols-[1fr_1.6fr] rounded-2xl border border-white/[0.07] bg-[#0e0e1a] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
 
-          {/* ── LEFT PANEL ── */}
+          {/* Left Panel */}
           <div className="relative hidden lg:flex flex-col justify-between p-8 bg-[#0a0a14] border-r border-white/[0.06] overflow-hidden">
-            {/* Purple glow orb */}
             <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-[#7c3aed]/20 blur-[80px]" />
             <div className="absolute bottom-10 right-0 w-48 h-48 rounded-full bg-[#7c3aed]/10 blur-[60px]" />
 
@@ -119,7 +119,6 @@ export default function SignupPage() {
               </p>
             </div>
 
-            {/* Highlight pills */}
             <div className="relative z-10 space-y-2.5">
               {highlights.map((h, i) => (
                 <motion.div key={i}
@@ -132,7 +131,6 @@ export default function SignupPage() {
               ))}
             </div>
 
-            {/* Mini visual */}
             <div className="relative z-10 mt-6 rounded-xl border border-white/[0.06] bg-[#0d0d14] p-4">
               <div className="text-[9px] uppercase tracking-widest text-white/20 mb-3 font-mono">Live Session</div>
               <div className="flex items-end gap-1 h-10">
@@ -143,12 +141,12 @@ export default function SignupPage() {
               </div>
               <div className="flex justify-between mt-2">
                 <span className="text-[9px] text-white/20 font-mono">0s</span>
-                <span className="text-[9px] text-[#a78bfa] font-mono font-bold">● ACTIVE</span>
+                <span className="text-[9px] text-[#a78bfa] font-mono font-bold">ACTIVE</span>
               </div>
             </div>
           </div>
 
-          {/* ── RIGHT PANEL (form) ── */}
+          {/* Right Panel (form) */}
           <div className="p-7 sm:p-10">
             <h1 className="text-2xl font-bold tracking-[-0.03em] text-white mb-1">Create an account</h1>
             <p className="text-sm text-white/30 mb-7">
@@ -207,8 +205,8 @@ export default function SignupPage() {
                   placeholder="Anna University" className={inputCls} />
               </Field>
 
-              {/* Course + Year */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Course + Year + Semester */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <Field label="Course">
                   <select value={form.course} onChange={set("course")}
                     className={inputCls + " cursor-pointer appearance-none"}>
@@ -221,6 +219,12 @@ export default function SignupPage() {
                     {YEARS.map(y => <option key={y} value={y} className="bg-[#0d0d14]">{y}</option>)}
                   </select>
                 </Field>
+                <Field label="Semester">
+                  <select value={form.semester} onChange={set("semester")}
+                    className={inputCls + " cursor-pointer appearance-none"}>
+                    {SEMESTERS.map(s => <option key={s} value={s} className="bg-[#0d0d14]">Semester {s}</option>)}
+                  </select>
+                </Field>
               </div>
             </div>
 
@@ -230,7 +234,7 @@ export default function SignupPage() {
               {isLoading ? (
                 <>
                   <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                  Creating account…
+                  Creating account...
                 </>
               ) : (
                 <>Create account <ArrowRight className="w-4 h-4" /></>
