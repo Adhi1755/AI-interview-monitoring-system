@@ -5,7 +5,7 @@ import {
   Eye, User, Mic, AlertTriangle, Brain, Lightbulb,
   Camera, Zap, Database, Play, BarChart, UserPlus,
   MonitorPlay, FileCheck, Shield, TrendingUp, Clock,
-  ArrowRight, ChevronDown,
+  ArrowRight,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -208,27 +208,27 @@ export default function LandingPage() {
     <div className="min-h-screen bg-[#08080f] text-white font-sans antialiased">
 
       {/* ── NAV ──────────────────────────────────────────── */}
-      <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 py-3 bg-[#08080f]/80 backdrop-blur-xl border-b border-white/[0.06]">
+      <nav className="fixed left-1/2 top-4 z-50 flex h-16 w-[calc(100%-1.5rem)] max-w-5xl -translate-x-1/2 items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 shadow-[0_20px_60px_rgba(0,0,0,0.4)] backdrop-blur-2xl md:px-6">
         <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-[#7c3aed] to-[#4c1d95] text-[10px] font-bold text-white shadow-[0_0_16px_rgba(124,58,237,0.5)]">AI</div>
-          <span className="text-sm font-bold tracking-widest text-white/80">AISMS</span>
+          
+          <span className="hidden text-sm font-bold tracking-widest text-white/80 sm:inline">AISMS</span>
         </div>
         <div className="hidden md:flex items-center gap-1">
           {["Features", "Pipeline", "About"].map(item => (
             <button key={item} onClick={() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: "smooth" })}
-              className="px-4 py-1.5 text-sm text-white/50 hover:text-white transition-colors rounded-lg hover:bg-white/5 flex items-center gap-1">
-              {item} {item !== "About" && <ChevronDown className="w-3 h-3 opacity-50" />}
+              className="flex items-center gap-1 rounded-full px-4 py-2 text-sm text-white/55 transition-colors hover:bg-white/5 hover:text-white">
+              {item}
             </button>
           ))}
         </div>
         <Link href={isAuthenticated ? "/interview" : "/login"}
-          className="flex items-center gap-2 bg-[#7c3aed] hover:bg-[#6d28d9] text-white text-sm font-semibold px-5 py-2 rounded-xl transition-all duration-200 shadow-[0_4px_20px_rgba(124,58,237,0.4)] hover:shadow-[0_4px_28px_rgba(124,58,237,0.6)] hover:-translate-y-0.5">
+          className="flex items-center gap-2 rounded-full bg-[#7c3aed] px-5 py-2 text-sm font-semibold text-white shadow-[0_4px_20px_rgba(124,58,237,0.4)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#6d28d9] hover:shadow-[0_4px_28px_rgba(124,58,237,0.6)]">
           {isAuthenticated ? "Dashboard" : "Sign Up"}
         </Link>
       </nav>
 
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section className="relative pt-32 pb-16 px-6 text-center overflow-hidden">
+      <section className="relative overflow-hidden px-6 pb-16 pt-36 text-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(124,58,237,0.15),transparent)]" />
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute left-1/2 top-0 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#7c3aed]/8 blur-[120px]" />
@@ -242,7 +242,7 @@ export default function LandingPage() {
           <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
             className="mb-5 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.03em] leading-[1.05] text-white">
             Unlock Potential With<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a78bfa] via-[#7c3aed] to-[#6d28d9]">AI-Powered Monitoring</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a78bfa] via-[#7c3aed] to-[#6d28d9]">AI-Smart Monitoring System</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}
             className="mb-8 text-sm sm:text-base text-white/40 max-w-xl mx-auto leading-relaxed">
